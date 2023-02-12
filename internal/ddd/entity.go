@@ -5,9 +5,9 @@ type Entity interface {
 }
 
 type BaseEntity struct {
-	id string
+	Id string
 }
 
 func (entity BaseEntity) GetId() string {
-	return entity.id
+	return entity.Id
 }

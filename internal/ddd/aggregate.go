@@ -7,18 +7,18 @@ type Aggregate interface {
 }
 
 type BaseAggregate struct {
-	id     string
-	events []Event
+	Id     string
+	Events []Event
 }
 
 func (aggregate BaseAggregate) GetId() string {
-	return aggregate.id
+	return aggregate.Id
 }
 
 func (aggregate BaseAggregate) GetEvents() []Event {
-	return aggregate.events
+	return aggregate.Events
 }
 
 func (aggregate *BaseAggregate) AddEvent(event Event) {
-	aggregate.events = append(aggregate.events, event)
+	aggregate.Events = append(aggregate.Events, event)
 }
