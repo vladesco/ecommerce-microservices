@@ -5,7 +5,7 @@ type StoreCreated struct {
 }
 
 func (event StoreCreated) GetName() string {
-	return "[STORE]: Store Created"
+	return "[STORE]: store Created"
 }
 
 type StoreParticipationEnabled struct {
@@ -13,7 +13,7 @@ type StoreParticipationEnabled struct {
 }
 
 func (event StoreParticipationEnabled) GetName() string {
-	return "[STORE]: Store Participation Enabled"
+	return "[STORE]: store Participation Enabled"
 }
 
 type StoreParticipationDisabled struct {
@@ -21,5 +21,5 @@ type StoreParticipationDisabled struct {
 }
 
 func (event StoreParticipationDisabled) GetName() string {
-	return "[STORE]: Store Participation Disabled"
+	return "[STORE]: store Participation Disabled"
 }

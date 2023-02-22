@@ -38,21 +38,23 @@ func NewAddProductHandler(
 
 func (handler AddProductHandler) AddProduct(ctx context.Context, params AddProductParams) error {
 	if _, err := handler.storeRepository.FindOne(ctx, params.Id); err != nil {
-		return fmt.Errorf("Add product error while finding product", err)
+		return fmt.Errorf("add product error while finding product %w", err)
 	}
 
 	product, err := productDomain.CreateProduct(params.Id, params.StoreId, params.Name, params.Description, params.SKU, params.Price)
 
 	if err != nil {
-		return fmt.Errorf("Add product error while creating product", err)
+		return fmt.Errorf("add product error while creating product %w", err)
 	}
 
-	if err := handler.productRepository.Save(ctx, product); err != nil {
-		return fmt.Errorf("Add product error while saving product", err)
+	if err = handler.productRepository.Save(ctx, product); err != nil {
+		return fmt.Errorf("add product error while saving product %w", err)
 
 	}
 
-	err = handler.eventPublisher.Publish(ctx, product.GetEvents()...)
+	if err = handler.eventPublisher.Publish(ctx, product.GetEvents()...); err != nil {
+		return fmt.Errorf("add product error while publishing events %w", err)
+	}
 
-	return err
+	return nil
 }

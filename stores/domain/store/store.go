@@ -7,10 +7,10 @@ import (
 )
 
 var (
-	ErrStoreMissingName                  = errors.New("Store name can't be empty")
-	ErrStoreMissingLocation              = errors.New("Store location can't be empty")
-	ErrStoreParticipationAlreadyEnabled  = errors.New("Store participation already enabled")
-	ErrStoreParticipationAlreadyDisabled = errors.New("Store participation already disabled")
+	ErrStoreMissingName                  = errors.New("store name can't be empty")
+	ErrStoreMissingLocation              = errors.New("store location can't be empty")
+	ErrStoreParticipationAlreadyEnabled  = errors.New("store participation already enabled")
+	ErrStoreParticipationAlreadyDisabled = errors.New("store participation already disabled")
 )
 
 type Store struct {

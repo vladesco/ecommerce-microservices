@@ -7,8 +7,8 @@ import (
 )
 
 var (
-	ErrProductMissingLocation      = errors.New("Product name can't be empty")
-	ErrProductPriceLessOrEqualZero = errors.New("Product can't have price less or equal to zero")
+	ErrProductMissingLocation      = errors.New("product name can't be empty")
+	ErrProductPriceLessOrEqualZero = errors.New("product can't have price less or equal to zero")
 )
 
 type Product struct {

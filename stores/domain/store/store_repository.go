@@ -1,4 +1,4 @@
-package store_domain
+package store
 
 import (
 	"context"
