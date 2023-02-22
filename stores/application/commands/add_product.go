@@ -2,7 +2,6 @@ package commands
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/vladesco/ecommerce-microservices/internal/ddd"
 	productDomain "github.com/vladesco/ecommerce-microservices/stores/domain/product"
@@ -38,23 +37,19 @@ func NewAddProductHandler(
 
 func (handler AddProductHandler) AddProduct(ctx context.Context, params AddProductParams) error {
 	if _, err := handler.storeRepository.FindOne(ctx, params.Id); err != nil {
-		return fmt.Errorf("add product error while finding product %w", err)
+		return err
 	}
 
 	product, err := productDomain.CreateProduct(params.Id, params.StoreId, params.Name, params.Description, params.SKU, params.Price)
 
 	if err != nil {
-		return fmt.Errorf("add product error while creating product %w", err)
+		return err
 	}
 
 	if err = handler.productRepository.Save(ctx, product); err != nil {
-		return fmt.Errorf("add product error while saving product %w", err)
+		return err
 
 	}
 
-	if err = handler.eventPublisher.Publish(ctx, product.GetEvents()...); err != nil {
-		return fmt.Errorf("add product error while publishing events %w", err)
-	}
-
-	return nil
+	return handler.eventPublisher.Publish(ctx, product.GetEvents()...)
 }

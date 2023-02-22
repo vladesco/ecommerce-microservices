@@ -2,7 +2,6 @@ package commands
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/vladesco/ecommerce-microservices/internal/ddd"
 	storeDomain "github.com/vladesco/ecommerce-microservices/stores/domain/store"
@@ -30,16 +29,12 @@ func (handler CreateStoreHandler) CreateStore(ctx context.Context, params Create
 	store, err := storeDomain.CreateStore(params.Id, params.Name, params.Location)
 
 	if err != nil {
-		return fmt.Errorf("create store error while creating store %w", err)
+		return err
 	}
 
 	if err = handler.storeRepository.Save(ctx, store); err != nil {
-		return fmt.Errorf("create store error while saving store %w", err)
+		return err
 	}
 
-	if err = handler.eventPublisher.Publish(ctx, store.Events...); err != nil {
-		return fmt.Errorf("create store error while publishing events %w", err)
-	}
-
-	return nil
+	return handler.eventPublisher.Publish(ctx, store.Events...)
 }
